@@ -1,33 +1,33 @@
 const catchError = require('../utils/catchError');
-const Course = require('../models/Course');
+const Professor = require('../models/Professor');
 const Student = require('../models/Student');
 
 const getAll = catchError(async(req, res) => {
-    const results = await Course.findAll({ include: [Student] });
+    const results = await Professor.findAll({ include: [Student] });
     return res.json(results);
 });
 
 const create = catchError(async(req, res) => {
-    const result = await Course.create(req.body);
+    const result = await Professor.create(req.body);
     return res.status(201).json(result);
 });
 
 const getOne = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await Course.findByPk(id);
+    const result = await Professor.findByPk(id);
     if(!result) return res.sendStatus(404);
     return res.json(result);
 });
 
 const remove = catchError(async(req, res) => {
     const { id } = req.params;
-    await Course.destroy({ where: {id} });
+    await Professor.destroy({ where: {id} });
     return res.sendStatus(204);
 });
 
 const update = catchError(async(req, res) => {
     const { id } = req.params;
-    const result = await Course.update(
+    const result = await Professor.update(
         req.body,
         { where: {id}, returning: true }
     );
